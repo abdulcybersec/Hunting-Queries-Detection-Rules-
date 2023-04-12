@@ -1,0 +1,4 @@
+SecurityEvent
+| where AccountType contains "User"
+|where Channel contains "Security"
+| distinct Activity
