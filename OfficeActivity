@@ -1,0 +1,6 @@
+OfficeActivity
+| where Operation contains "create"
+| where UserId contains "email@xx.com"
+| project ResultReasonType, ResultStatus, Item, ItemName, ItemType, TimeGenerated
+
+You can use operators like Update, ReactedToMessage, FileAccessed, MailItemsAccessed, FileModifiedExtended,  Send, MoveToDeletedItems, HardDelete,  SoftDelete, within officeactivity 
