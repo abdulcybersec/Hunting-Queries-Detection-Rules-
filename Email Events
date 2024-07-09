@@ -1,0 +1,64 @@
+OfficeActivity
+| where Operation contains "create"
+| where UserId contains "(EmailAddresses)"
+| project ResultReasonType, ResultStatus, Item, ItemName, ItemType, TimeGenerated
+
+You can use operators like Update, ReactedToMessage, FileAccessed, MailItemsAccessed, FileModifiedExtended,  Send, MoveToDeletedItems, HardDelete,  SoftDelete, 
+This query is used to look for particular domain if it found for phsiisng and to see how to may of them have recived that email for that domain https://login.microsoftonline.com/error
+
+EmailEvents
+| where DeliveryAction contains "Delivered"
+| where SenderFromDomain contains "(EmailAddresses)"
+| project RecipientEmailAddress, TimeGenerated, SenderDisplayName, Subject, AuthenticationDetails, SenderIPv4, SenderIPv6, SenderMailFromAddress
+
+EmailEvents
+| where  RecipientEmailAddress contains "(EmailAddresses)"
+| project  AuthenticationDetails, SenderIPv4, SenderIPv6, SenderFromDomain,  SenderDisplayName, SenderFromAddress, Subject, TimeGenerated
+
+
+
+
+
+This query looks for email attachment name ending with a JNLP file extension.
+
+EmailAttachmentInfo
+| where FileName endswith ".jnlp"
+
+
+
+Generic regex for all emails containing base "t-dot" redirector pattern:EmailUrlInfo
+| where Url matches regex @"s?\:\/\/(?:www\.)?t\.(?:[\w\-\.]+\/+)+(?:r|redirect)\/?\?"
+| where Url == "http://t.newsletter.marni.com/r/?id=hafc685a0,223fff11,12c925c9 "
+
+
+
+Use this query to search for instances
+
+let EmailAddresses = pack_array
+('http://kurtgeiger.com ');
+EmailEvents
+| where SenderMailFromDomain in (EmailAddresses)
+| extend RecipientDomain = extract("[^@]+$", 0, RecipientEmailAddress)
+| where SenderFromDomain == RecipientDomain
+| join EmailUrlInfo on $left.NetworkMessageId == $right.NetworkMessageId
+
+
+
+let TimeFrame = 1d;
+Anomalies
+| where TimeGenerated > ago(TimeFrame)
+| project-rename ['Reason'] = Description
+| project-reorder TimeGenerated, ['Reason'], Entities, RuleName, Tactics, UserName, DestinationDevice
+
+
+
+DeviceProcessEvents
+| where DeviceName contains "LATITUDE-311"
+| where FileName contains "omadmclient.exe"
+
+
+
+SigninLogs
+| where TimeGenerated >= ago(7d)
+| where Level contains "4"
+| project IPAddress, UserDisplayName, Level, TimeGenerated, Location, AuthenticationMethodsUsed, AuthenticationDetails
