@@ -15,6 +15,7 @@ AuditLogs
 | project TimeGenerated,OperationName, Identity, Result, TargetResources, InitiatedBy
 
 This is specifically for the UK time zone and for operations related to deleting and reading BitLocker keys.
+
 AuditLogs
 | where OperationName contains "Read BitLocker Key" or OperationName contains "Delete BitLcoker key"
 | extend UKTimeGenerated = TimeGenerated + 1h 
