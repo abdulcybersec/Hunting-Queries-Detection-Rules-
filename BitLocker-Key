@@ -1,0 +1,24 @@
+Here's a handy KQL (Kusto Query Language) query to track BitLocker key activities such as accessing, reading, deleting, or adding keys in your AuditLogs:
+
+🔍 What Does This Query Do?
+This query scours the AuditLogs table for any operations associated with "BitLocker key" and retrieves specific details about these operations, including:
+TimeGenerated: When the action occurred.
+OperationName: The name of the operation performed.
+Identity: Who performed the action.
+Result: The outcome of the action.
+TargetResources: The resources that were accessed.
+InitiatedBy: Who initiated the action.
+By implementing this query, you can get a comprehensive list of instances where BitLocker keys were accessed, read, deleted, or added, enhancing your ability to detect and respond to potential security threats.
+
+AuditLogs
+| where OperationName contains "BitLocker key"
+| project TimeGenerated,OperationName, Identity, Result, TargetResources, InitiatedBy
+
+This is specifically for the UK time zone and for operations related to deleting and reading BitLocker keys.
+AuditLogs
+| where OperationName contains "Read BitLocker Key" or OperationName contains "Delete BitLcoker key"
+| extend UKTimeGenerated = TimeGenerated + 1h 
+| project TimeGenerated, OperationName, Result, AdditionalDetails, InitiatedBy, TargetResources
+
+
+
