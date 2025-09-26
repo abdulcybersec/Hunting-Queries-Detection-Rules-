@@ -1,3 +1,4 @@
-KQL Queries for Defender XDR, Microsoft Sentinel, and Other Microsoft Solutions
+🕵️‍♂️ KQL Detections & Hunting Queries
 
-This repository aims to provide accessible KQL queries for a broad audience. These queries are designed to enhance detection capabilities within the logs of Microsoft Security products. While not all suspicious activities trigger alerts by default, many can be detected through log analysis. The repository includes Detection Rules, Hunting Queries, and Visualizations. Users are encouraged to leverage these queries to improve their security posture.
+This repository is a collection of my KQL (Kusto Query Language) detections and hunting queries, primarily focused on the Microsoft Defender XDR / Microsoft Sentinel ecosystem.
+It’s a learning project where I share rules that I find useful, experiment with, and improve over time.
